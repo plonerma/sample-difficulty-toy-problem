@@ -36,7 +36,7 @@ train_loader = torch.utils.data.DataLoader(
 
 #### data for creating the image
 x_min, x_max = -10, 10
-y_min, y_max = -5, 5
+y_min, y_max = -6, 6
 
 w = int((x_max - x_min) * resolution)
 h = int((y_max - y_min) * resolution)
@@ -61,7 +61,10 @@ optimizer = torch.optim.SGD(model.parameters(), learning_rate)
 
 
 ims = list()
-fig, ax = plt.subplots()
+fig, ax = plt.subplots(figsize=(8, 6))
+
+ax.axis('off')
+fig.tight_layout()
 
 im_kw = dict(
     origin="lower", extent=(x_min, x_max, y_min, y_max), cmap="RdBu",
@@ -69,7 +72,7 @@ im_kw = dict(
 )
 
 scatter_kw = dict(
-    #marker=".",
+    marker=".",
     cmap="bwr"
 )
 
@@ -113,5 +116,5 @@ ax.set_aspect(1)
 ani = animation.ArtistAnimation(
     fig, ims, interval=interval, blit=True, repeat_delay=0)
 
-ani.save("training.gif", writer="imagemagick")
+ani.save("media/training.gif", writer="imagemagick")
 plt.show()
